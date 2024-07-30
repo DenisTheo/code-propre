@@ -1,29 +1,28 @@
 package ex3;
 
-import java.util.List;
-
-public class ZoneCarnivore
+/**
+ * Représente la zone Carnivore d'un Zoo
+ */
+public class ZoneCarnivore extends Zone
 {
-	private List<String> types;
-	private List<String> noms;
-	private List<String> comportements;
-	
-	public void addAnimal(String typeAnimal, String nomAnimal, String comportement)
+	/**
+	 * Constructeur principal
+	 * 
+	 * @param nom	le nom de la zone
+	 * @param consommationNourriture	la consommation de nourriture par animal dans la zone, en Kg
+	 */
+	public ZoneCarnivore(String nom, double consommationNourriture)
 	{
-		types.add(typeAnimal);
-		noms.add(nomAnimal);
-		comportements.add(comportement);
+		super(nom, consommationNourriture);
+		setConsommationNourriture(consommationNourriture);
 	}
-	
-	public void afficherListeAnimaux()
+
+	@Override
+	public boolean animalCorrespondZone(Animal animal)
 	{
-		for (String nom: noms){
-			System.out.println(nom);
-		}
-	}
-	
-	public double calculerKgsNourritureParJour()
-	{
-		return noms.size() * 10;
+		if(animal instanceof Mammifere && animal.getComportement() == Comportement.CARNIVORE)
+			return true;
+		
+		return false;
 	}
 }

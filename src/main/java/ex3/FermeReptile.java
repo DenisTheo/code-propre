@@ -1,35 +1,28 @@
 package ex3;
 
-import java.util.List;
-
-public class FermeReptile
+/**
+ * Représente la zone Ferme de Reptiles d'un Zoo
+ */
+public class FermeReptile extends Zone
 {
-	private List<String> types;
-	private List<String> noms;
-	private List<String> comportements;
-	
-	public void addAnimal(String typeAnimal, String nomAnimal, String comportement)
+	/**
+	 * Constructeur principal
+	 * 
+	 * @param nom	le nom de la zone
+	 * @param consommationNourriture	la consommation de nourriture par animal dans la zone, en Kg
+	 */
+	public FermeReptile(String nom, double consommationNourriture)
 	{
-		types.add(typeAnimal);
-		noms.add(nomAnimal);
-		comportements.add(comportement);
+		super(nom, consommationNourriture);
+		setConsommationNourriture(consommationNourriture);
 	}
-	
-	public void afficherListeAnimaux()
+
+	@Override
+	public boolean animalCorrespondZone(Animal animal)
 	{
-		for (String nom: noms)
-		{
-			System.out.println(nom);
-		}
-	}
-	
-	public int compterAnimaux()
-	{
-		return noms.size();
-	}
-	
-	public double calculerKgsNourritureParJour()
-	{
-		return noms.size() * 0.1;
+		if(animal instanceof Reptile)
+			return true;
+		
+		return false;
 	}
 }

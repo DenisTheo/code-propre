@@ -1,54 +1,109 @@
 package ex3;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Représente un Zoo avec des animaux triés par zone
+ */
 public class Zoo
 {
+	/** le nom du Zoo */
 	private String nom;
-	private SavaneAfricaine savaneAfricaine;
-	private ZoneCarnivore zoneCarnivore;
-	private FermeReptile fermeReptile;
-	private Aquarium aquarium;
+	/** la liste des zones du zoo */
+	private List<Zone> zones;
 	
+	/**
+	 * Constructeur principal
+	 * 
+	 * @param nom	le nom du Zoo
+	 */
 	public Zoo(String nom)
 	{
-		this.nom = nom;
+		setNom(nom);
+		zones = new ArrayList<Zone>();
 	}
 	
-	public void addAnimal(String nomAnimal, String typeAnimal, String comportement)
+	/**
+	 * Ajoute l'animal à la première zone de la liste l'acceptant. Si aucune ne l'accepte, il n'est pas ajouté
+	 * 
+	 * @param animal	l'animal à ajouter
+	 */
+	public void addAnimal(Animal animal)
 	{
-		if (typeAnimal.equals("MAMMIFERE") && comportement.equals("CARNIVORE"))
-			zoneCarnivore.addAnimal(typeAnimal, nomAnimal, comportement);
-
-		else if (typeAnimal.equals("MAMMIFERE") && comportement.equals("HERBIVORE"))
-			savaneAfricaine.addAnimal(typeAnimal, nomAnimal, comportement);
+		boolean valide = false;
+		int index = 0;
 		
-		else if (typeAnimal.equals("REPTILE"))
-			fermeReptile.addAnimal(typeAnimal, nomAnimal, comportement);
-
-		else if (typeAnimal.equals("POISSON"))
-			aquarium.addAnimal(typeAnimal, nomAnimal, comportement);
+		do
+		{
+			valide = zones.get(index).addAnimal(animal);
+			index++;
+		}while(valide == false && index < zones.size());
+		
+		if(valide)
+			System.out.println("L'animal a été ajouté à " + zones.get(--index).getNom());
+		else
+			System.out.println("L'animal n'a pu être ajouté à aucune zone");
 	}
 	
+	/**
+	 * Affiche la liste des animaux de chaque zone
+	 */
 	public void afficherListeAnimaux()
 	{
-		savaneAfricaine.afficherListeAnimaux();
-		zoneCarnivore.afficherListeAnimaux();
-		fermeReptile.afficherListeAnimaux();
-		aquarium.afficherListeAnimaux();
+		for(Zone zone: zones)
+		{
+			System.out.println(zone.getNom() + ':');
+			zone.afficherListeAnimaux();
+		}
+	}
+	
+	/**
+	 * Affiche la consommation de nourriture par jour pour chaque zone du Zoo
+	 */
+	public void afficherConsomamtionNourriture()
+	{
+		for(Zone zone: zones)
+			System.out.println("Consommation de " + zone.getNom() + ": " + zone.calculerKgsNourritureParJour() + "Kg de nourriture par jour.");
+	}
+	
+	/**
+	 * Ajoute la zone spécifiée à la liste des zones du Zoo
+	 * 
+	 * @param zone	la zone à ajouter
+	 */
+	public void addZone(Zone zone)
+	{
+		zones.add(zone);
 	}
 
-	/** Getter for nom
-	 * @return the nom
+	/**
+	 * Getter de nom
+	 * 
+	 * @return le nom du zoo nom
 	 */
 	public String getNom()
 	{
 		return nom;
 	}
 
-	/** Setter
-	 * @param nom the nom to set
+	/** 
+	 * Setter de nom
+	 * 
+	 * @param nom	le nom à assigner au zoo
 	 */
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+	}
+
+	/**
+	 * Getter de zones
+	 * 
+	 * @return la liste des zones du zoo
+	 */
+	public List<Zone> getZones()
+	{
+		return zones;
 	}
 }

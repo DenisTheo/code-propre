@@ -1,7 +1,7 @@
 package ex2;
 
 /**
- * Représente un compte bancaire de type compte courant (type=CC) ou livret A (type=LA)
+ * Représente un compte bancaire
  * 
  * @author Théo DENIS
  */

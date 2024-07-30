@@ -3,7 +3,7 @@ package ex2;
 /**
  * Représente un compte bancaire de type
  * 
- * @author DIGINAMIC
+ * @author Théo DENIS
  */
 public abstract class CompteBancaire
 {

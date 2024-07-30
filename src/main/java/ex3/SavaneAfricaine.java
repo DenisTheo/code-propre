@@ -1,35 +1,28 @@
 package ex3;
 
-import java.util.List;
-
-public class SavaneAfricaine
+/**
+ * Représente la zone Savane Africaine d'un Zoo
+ */
+public class SavaneAfricaine extends Zone
 {
-	private List<String> types;
-	private List<String> noms;
-	private List<String> comportements;
-	
-	public void addAnimal(String typeAnimal, String nomAnimal, String comportement)
+	/**
+	 * Constructeur principal
+	 * 
+	 * @param nom	le nom de la zone
+	 * @param consommationNourriture	la consommation de nourriture par animal dans la zone, en Kg
+	 */
+	public SavaneAfricaine(String nom, double consommationNourriture)
 	{
-		types.add(typeAnimal);
-		noms.add(nomAnimal);
-		comportements.add(comportement);
+		super(nom, consommationNourriture);
+		setConsommationNourriture(consommationNourriture);
 	}
-	
-	public void afficherListeAnimaux()
+
+	@Override
+	public boolean animalCorrespondZone(Animal animal)
 	{
-		for (String nom: noms)
-		{
-			System.out.println(nom);
-		}
-	}
-	
-	public int compterAnimaux()
-	{
-		return noms.size();
-	}
-	
-	public int calculerKgsNourritureParJour()
-	{
-		return noms.size() * 10;
+		if(animal instanceof Mammifere && animal.getComportement() == Comportement.HERBIVORE)
+			return true;
+		
+		return false;
 	}
 }
